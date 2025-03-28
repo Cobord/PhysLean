@@ -142,6 +142,9 @@ variable (Q : GeneralPotential)
 noncomputable def schrodingerOperator (ψ : ℝ → ℂ) : ℝ → ℂ :=
   fun x => 1 / (2 * Q.m) * (momentumOperator Q.ℏ (momentumOperator Q.ℏ ψ) x) + (Q.V x) *  ψ x
 
+noncomputable def mkSchroedinger (system: GeneralPotential) : (ℝ → ℂ) -> (ℝ → ℂ) :=
+  fun ψ => fun x => 1 / (2 * system.m) * (momentumOperator system.ℏ (momentumOperator system.ℏ ψ) x) + (system.V x) *  ψ x
+
 private lemma eval_add (f g : ℝ → ℂ) :
     (f + g) x = f x + g x := by
   rfl
