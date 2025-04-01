@@ -10,6 +10,10 @@ import PhysLean.QuantumMechanics.OneDimension.GeneralPotential.Basic
 
 -/
 
+open QuantumMechanics
+open OneDimension
+open GeneralPotential
+
 namespace SUSYQM
 
 /-- The two partner potentials associated to a given superpotential `W`. -/
@@ -39,5 +43,29 @@ noncomputable def Q_operator (ψ : ℝ → ℂ) : ℝ → ℂ :=
   fun x => SQM.ℏ/(Real.sqrt (2*SQM.m)) * deriv ψ x + (SQM.W x)*(ψ x)
 noncomputable def Q_dag_operator (ψ : ℝ → ℂ) : ℝ → ℂ :=
   fun x => -SQM.ℏ/(Real.sqrt (2*SQM.m)) * deriv ψ x + (SQM.W x)*(ψ x)
+
+noncomputable def schroedinger1 : ((ℝ → ℂ) -> (ℝ → ℂ)) :=
+  fun ψ => Q_operator SQM (Q_dag_operator SQM ψ)
+noncomputable def schroedinger2 : ((ℝ → ℂ) -> (ℝ → ℂ)) :=
+  fun ψ => Q_dag_operator SQM (Q_operator SQM ψ)
+
+noncomputable def SQM_to_QM (which : Bool): GeneralPotential :=
+  {
+    m := SQM.m,
+    ℏ := SQM.ℏ,
+    V := (if which then Prod.fst else Prod.snd) (Superpotential_to_Potential SQM.ℏ SQM.m SQM.hm SQM.W SQM.hW_x),
+    hℏ := SQM.hℏ,
+    hm := SQM.hm
+  }
+
+theorem schroedingerFactorized1 :
+  forall ψ, forall x, (schrodingerOperator (SQM_to_QM SQM True) ψ) x == (schroedinger1 SQM ψ) x:= by
+  intros ψ x
+  sorry
+
+theorem schroedingerFactorized2 :
+  forall ψ, forall x, (schrodingerOperator (SQM_to_QM SQM False) ψ) x == (schroedinger2 SQM ψ) x:= by
+  intros ψ x
+  sorry
 
 end SUSYQM
