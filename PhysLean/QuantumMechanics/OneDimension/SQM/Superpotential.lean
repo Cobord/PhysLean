@@ -58,11 +58,13 @@ noncomputable def SQM_to_QM (which : Bool): GeneralPotential :=
     hm := SQM.hm
   }
 
+TODO "Implement proof that QQ^† is the factorization of schroedinger operator with + sign potential"
 theorem schroedingerFactorized1 :
   forall ψ, forall x, (schrodingerOperator (SQM_to_QM SQM True) ψ) x == (schroedinger1 SQM ψ) x:= by
   intros ψ x
   sorry
 
+TODO "Implement proof that Q^†Q is the factorization of schroedinger operator with - sign potential"
 theorem schroedingerFactorized2 :
   forall ψ, forall x, (schrodingerOperator (SQM_to_QM SQM False) ψ) x == (schroedinger2 SQM ψ) x:= by
   intros ψ x

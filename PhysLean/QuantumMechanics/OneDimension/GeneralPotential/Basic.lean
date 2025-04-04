@@ -205,7 +205,7 @@ lemma schrodingerOperator_linear (a1 a2 : ℂ) (ψ1 ψ2 : ℝ → ℂ)
 def Bounded : Prop :=
   (∃ E, ∃ R, ∀ z < -R, E < Q.V z) ∧ ∃ E, ∃ R, ∀ z > R, E < Q.V z
 
-
+end GeneralPotential
 
 noncomputable def makeHarmonicOscillator (m : ℝ) (ℏ : ℝ) (hm : m > 0) (hℏ : ℏ > 0) (ω : ℝ) : GeneralPotential := {
   m := m,
@@ -215,7 +215,13 @@ noncomputable def makeHarmonicOscillator (m : ℝ) (ℏ : ℝ) (hm : m > 0) (h�
   hm := hm
 }
 
-end GeneralPotential
+noncomputable def makeFree (m : ℝ) (ℏ : ℝ) (hm : m > 0) (hℏ : ℏ > 0) : GeneralPotential := {
+  m := m,
+  ℏ := ℏ,
+  V := fun _x => 0,
+  hℏ := hℏ
+  hm := hm
+}
 
 end OneDimension
 
